@@ -63,10 +63,10 @@ export default function AdminPage() {
         loadOrders();
       } else {
         const data = await res.json();
-        setLoginError(data.error || "Anmeldung fehlgeschlagen");
+        setLoginError(data.error || "Échec de la connexion");
       }
     } catch {
-      setLoginError("Ein Fehler ist aufgetreten.");
+      setLoginError("Une erreur est survenue.");
     }
   };
 
@@ -84,7 +84,7 @@ export default function AdminPage() {
         setOrders(data);
       }
     } catch (err) {
-      console.error("Fehler beim Laden der Bestellungen:", err);
+      console.error("Erreur lors du chargement des commandes :", err);
     } finally {
       setLoadingOrders(false);
     }
@@ -93,7 +93,7 @@ export default function AdminPage() {
   if (isAuthenticated === null) {
     return (
       <div className="admin-loading">
-        <p>Laden...</p>
+        <p>Chargement...</p>
       </div>
     );
   }
@@ -105,8 +105,8 @@ export default function AdminPage() {
         <div className="admin-login-card">
           <div className="admin-login-header">
             <i className="fa-solid fa-lock admin-login-icon"></i>
-            <h1 className="admin-login-title">Admin Login</h1>
-            <p className="admin-login-subtitle">Swiss Holz Administration</p>
+            <h1 className="admin-login-title">Connexion Admin</h1>
+            <p className="admin-login-subtitle">Administration HolzChreiz</p>
           </div>
 
           {loginError && (
@@ -117,7 +117,7 @@ export default function AdminPage() {
 
           <form onSubmit={handleLogin} className="admin-login-form">
             <div className="admin-form-group">
-              <label htmlFor="username">Benutzername</label>
+              <label htmlFor="username">Nom d'utilisateur</label>
               <input
                 id="username"
                 type="text"
@@ -129,7 +129,7 @@ export default function AdminPage() {
             </div>
 
             <div className="admin-form-group">
-              <label htmlFor="password">Passwort</label>
+              <label htmlFor="password">Mot de passe</label>
               <input
                 id="password"
                 type="password"
@@ -141,7 +141,7 @@ export default function AdminPage() {
             </div>
 
             <button type="submit" className="admin-btn-primary">
-              Anmelden
+              Se connecter
             </button>
           </form>
         </div>
@@ -149,38 +149,38 @@ export default function AdminPage() {
     );
   }
 
-  // DASHBOARD ADMIN
+  // TABLEAU DE BORD ADMIN
   return (
     <main className="admin-container">
       <div className="admin-header">
         <div>
-          <h1 className="admin-header-title">Bestellungen (Commandes)</h1>
-          <p className="admin-header-desc">Übersicht aller eingegangenen Kundenbestellungen</p>
+          <h1 className="admin-header-title">Commandes</h1>
+          <p className="admin-header-desc">Aperçu de toutes les commandes clients reçues</p>
         </div>
 
         <button onClick={handleLogout} className="admin-btn-logout">
-          <i className="fa-solid fa-right-from-bracket"></i> Abmelden
+          <i className="fa-solid fa-right-from-bracket"></i> Se déconnecter
         </button>
       </div>
 
       {loadingOrders ? (
-        <p className="admin-loading">Bestellungen werden geladen...</p>
+        <p className="admin-loading">Chargement des commandes...</p>
       ) : orders.length === 0 ? (
         <div className="admin-empty-state">
-          Keine Bestellungen vorhanden.
+          Aucune commande disponible.
         </div>
       ) : (
         <div className="admin-table-wrapper">
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Bestell-ID</th>
-                <th>Kunde</th>
-                <th>Lieferadresse</th>
-                <th>Kontakt</th>
-                <th>Gesamtsumme</th>
-                <th>Datum</th>
-                <th>Status</th>
+                <th>N° de commande</th>
+                <th>Client</th>
+                <th>Adresse de livraison</th>
+                <th>Contact</th>
+                <th>Montant total</th>
+                <th>Date</th>
+                <th>Statut</th>
               </tr>
             </thead>
             <tbody>
@@ -209,11 +209,11 @@ export default function AdminPage() {
                     CHF {order.grandTotal.toFixed(2)}
                   </td>
                   <td>
-                    {new Date(order.createdAt).toLocaleDateString("de-CH")}
+                    {new Date(order.createdAt).toLocaleDateString("fr-CH")}
                   </td>
                   <td>
                     <span className={`admin-badge admin-badge-${order.status}`}>
-                      {order.status === "pending" ? "Ausstehend" : order.status}
+                      {order.status === "pending" ? "En attente" : order.status}
                     </span>
                   </td>
                 </tr>
