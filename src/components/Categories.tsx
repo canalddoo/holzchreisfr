@@ -66,7 +66,7 @@ export default function Categories() {
           {categories.map((cat) => (
             <Link
               key={cat.id}
-              href={cat.slug}
+              href={""}
               className={`category-card ${cat.isLarge ? "large-card" : ""}`}
               style={{ backgroundImage: `url(${cat.image})` }}
             >

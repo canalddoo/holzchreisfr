@@ -18,7 +18,7 @@ export default function Navbar() {
     { name: "Accueil", path: "/" },
     { name: "À propos", path: "/a-propos" },
     { name: "Boutique", path: "/boutique" },
-    { name: "Catégories", path: "/granules" },
+    { name: "Catégories", path: "/boutique" },
     { name: "Contact", path: "/contact" },
   ];
 

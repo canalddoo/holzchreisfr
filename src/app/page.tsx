@@ -55,7 +55,7 @@ export default function Home() {
     </div>
 
     {/* Bouton CTA */}
-    <Link href="/bois-de-chauffage" className="promo-btn">
+    <Link href="/boutique" className="promo-btn">
       <span>Acheter maintenant</span>
       <i className="fa-solid fa-arrow-right"></i>
     </Link>
