@@ -180,51 +180,64 @@ export default function ShopGrid() {
           {displayedProducts.map((product: Product) => (
             <div key={product.id} className="product-card">
               {/* Image & Badge Promo */}
-              <div className="product-image-wrap">
-                <Image
-                  src={product.image}
-                  alt={product.title}
-                  fill
-                  className="product-image"
-                />
-                {product.discount && (
-                  <span className="badge-discount">{product.discount}</span>
-                )}
-              </div>
+              <Link
+                href={`/boutique/${product.id}`}
+                className="product-image-link"
+                aria-label={`Voir ${product.title}`}
+              >
+                <div className="product-image-wrap">
+                  <Image
+                    src={product.image}
+                    alt={product.title}
+                    fill
+                    className="product-image"
+                  />
+                  {product.discount && (
+                    <span className="badge-discount">{product.discount}</span>
+                  )}
+                </div>
+              </Link>
 
               {/* Détails du produit */}
               <div className="product-info">
-                <span className="product-category">{product.category}</span>
-                <h3 className="product-title">{product.title}</h3>
+                <Link
+                  href={`/boutique/${product.id}`}
+                  className="product-detail-link"
+                >
+                  <span className="product-category">{product.category}</span>
+                  <h3 className="product-title">{product.title}</h3>
 
-                {/* Évaluations */}
-                <div className="product-rating">
-                  <div className="stars">
-                    {[...Array(5)].map((_, i) => (
-                      <i
-                        key={i}
-                        className={`fa-solid fa-star ${
-                          i < Math.floor(product.rating || 0) ? "active" : ""
-                        }`}
-                      ></i>
-                    ))}
+                  {/* Évaluations */}
+                  <div className="product-rating">
+                    <div className="stars">
+                      {[...Array(5)].map((_, i) => (
+                        <i
+                          key={i}
+                          className={`fa-solid fa-star ${
+                            i < Math.floor(product.rating || 0) ? "active" : ""
+                          }`}
+                        ></i>
+                      ))}
+                    </div>
+                    {product.reviewsCount !== undefined && (
+                      <span className="reviews-count">
+                        ({product.reviewsCount})
+                      </span>
+                    )}
                   </div>
-                  {product.reviewsCount !== undefined && (
-                    <span className="reviews-count">({product.reviewsCount})</span>
-                  )}
-                </div>
 
-                {/* Prix */}
-                <div className="product-price-box">
-                  {product.oldPrice && (
-                    <span className="old-price">
-                      {product.oldPrice.toFixed(2)} €
+                  {/* Prix */}
+                  <div className="product-price-box">
+                    {product.oldPrice && (
+                      <span className="old-price">
+                        {product.oldPrice.toFixed(2)} €
+                      </span>
+                    )}
+                    <span className="current-price">
+                      {product.price.toFixed(2)} €
                     </span>
-                  )}
-                  <span className="current-price">
-                    {product.price.toFixed(2)} €
-                  </span>
-                </div>
+                  </div>
+                </Link>
 
                 {/* Bouton Ajouter au panier */}
                 <button

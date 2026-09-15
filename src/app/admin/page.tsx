@@ -16,6 +16,9 @@ interface Order {
   shippingCost: number;
   grandTotal: number;
   status: string;
+  paymentMethod: string;
+  paymentStatus: string;
+  stripeSessionId?: string | null;
   createdAt: string;
 }
 
@@ -109,11 +112,7 @@ export default function AdminPage() {
             <p className="admin-login-subtitle">Administration HolzChreiz</p>
           </div>
 
-          {loginError && (
-            <div className="admin-login-error">
-              {loginError}
-            </div>
-          )}
+          {loginError && <div className="admin-login-error">{loginError}</div>}
 
           <form onSubmit={handleLogin} className="admin-login-form">
             <div className="admin-form-group">
@@ -155,7 +154,9 @@ export default function AdminPage() {
       <div className="admin-header">
         <div>
           <h1 className="admin-header-title">Commandes</h1>
-          <p className="admin-header-desc">Aperçu de toutes les commandes clients reçues</p>
+          <p className="admin-header-desc">
+            Aperçu de toutes les commandes clients reçues
+          </p>
         </div>
 
         <button onClick={handleLogout} className="admin-btn-logout">
@@ -166,9 +167,7 @@ export default function AdminPage() {
       {loadingOrders ? (
         <p className="admin-loading">Chargement des commandes...</p>
       ) : orders.length === 0 ? (
-        <div className="admin-empty-state">
-          Aucune commande disponible.
-        </div>
+        <div className="admin-empty-state">Aucune commande disponible.</div>
       ) : (
         <div className="admin-table-wrapper">
           <table className="admin-table">
@@ -179,6 +178,7 @@ export default function AdminPage() {
                 <th>Adresse de livraison</th>
                 <th>Contact</th>
                 <th>Montant total</th>
+                <th>Paiement</th>
                 <th>Date</th>
                 <th>Statut</th>
               </tr>
@@ -188,7 +188,9 @@ export default function AdminPage() {
                 <tr key={order.id}>
                   <td className="admin-order-id">{order.id}</td>
                   <td>
-                    <strong>{order.firstName} {order.lastName}</strong>
+                    <strong>
+                      {order.firstName} {order.lastName}
+                    </strong>
                     <br />
                     <span className="admin-customer-sub">{order.country}</span>
                   </td>
@@ -206,7 +208,18 @@ export default function AdminPage() {
                     <span className="admin-customer-sub">{order.email}</span>
                   </td>
                   <td className="admin-price">
-                    CHF {order.grandTotal.toFixed(2)}
+                    € {order.grandTotal.toFixed(2)}
+                  </td>
+                  <td>
+                    <strong>
+                      {order.paymentMethod === "stripe" ? "Stripe" : "Virement"}
+                    </strong>
+                    <br />
+                    <span
+                      className={`admin-badge admin-badge-${order.paymentStatus}`}
+                    >
+                      {order.paymentStatus === "paid" ? "Payé" : "En attente"}
+                    </span>
                   </td>
                   <td>
                     {new Date(order.createdAt).toLocaleDateString("fr-CH")}

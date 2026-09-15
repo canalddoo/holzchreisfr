@@ -16,7 +16,8 @@ export default function Footer() {
             />
           </div>
           <p className="footer-description">
-            Combustibles suisses de haute qualité, directement issus de forêts gérées de manière durable.
+            Combustibles suisses de haute qualité, directement issus de forêts
+            gérées de manière durable.
           </p>
           <div className="social-links">
             <a href="#" aria-label="Facebook" className="social-icon">
@@ -95,7 +96,7 @@ export default function Footer() {
             </li>
             <li>
               <i className="fa-solid fa-envelope"></i>
-              <a href="mailto:info@holzchreiz.ch">info@holzchreiz.ch</a>
+              <a href="mailto:info@holzchreiz.fr">info@holzchreiz.fr</a>
             </li>
           </ul>
         </div>

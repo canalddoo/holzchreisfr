@@ -14,5 +14,8 @@ export const orders = sqliteTable("orders", {
   shippingCost: real("shipping_cost").notNull(),
   grandTotal: real("grand_total").notNull(),
   status: text("status").default("pending"), // pending, paid, shipped, cancelled
+  paymentMethod: text("payment_method").default("bank_transfer").notNull(),
+  paymentStatus: text("payment_status").default("pending").notNull(),
+  stripeSessionId: text("stripe_session_id"),
   createdAt: text("created_at").$defaultFn(() => new Date().toISOString()),
 });
