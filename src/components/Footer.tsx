@@ -66,6 +66,17 @@ export default function Footer() {
                 Conditions Générales de Vente
               </Link>
             </li>
+            <li>
+              <Link href="/politique-de-confidentialite">
+                Politique de confidentialité
+              </Link>
+            </li>
+            <li>
+              <Link href="/mentions-legales">Mentions légales</Link>
+            </li>
+            <li>
+              <Link href="/livraison-et-retours">Livraison et retours</Link>
+            </li>
           </ul>
         </div>
 
@@ -88,7 +99,7 @@ export default function Footer() {
           <ul className="contact-info-list">
             <li>
               <i className="fa-solid fa-location-dot"></i>
-              <span>Holzweg 12, 3000 Berne</span>
+              <span>38420 Le Versoud, France</span>
             </li>
             <li>
               <i className="fa-solid fa-phone"></i>
