@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { db } from "@/lib/db";
 import { orders } from "@/lib/schema";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { eq } from "drizzle-orm";
 
 export async function POST(request: Request) {
@@ -14,6 +14,7 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   try {
+    const stripe = getStripe();
     const event = stripe.webhooks.constructEvent(
       await request.text(),
       signature,

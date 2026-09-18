@@ -2,10 +2,11 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { orders } from "@/lib/schema";
 import { productsData } from "@/data/products";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 
 export async function POST(request: Request) {
   try {
+    const stripe = getStripe();
     const body = await request.json();
     const { customer, items } = body;
     const validItems = Array.isArray(items)

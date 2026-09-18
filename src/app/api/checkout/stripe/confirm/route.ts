@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { orders } from "@/lib/schema";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { eq } from "drizzle-orm";
 
 export async function POST(request: Request) {
   try {
+    const stripe = getStripe();
     const { sessionId } = await request.json();
     if (!sessionId || typeof sessionId !== "string") {
       return NextResponse.json(
